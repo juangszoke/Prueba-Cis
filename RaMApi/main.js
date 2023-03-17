@@ -7,6 +7,7 @@ function cargarPersonajes(personajes, container){
         const personajeId = document.createTextNode(`ID: ${personaje.id}`);
         const personajeImg = document.createElement('img');
         personajeImg.src = personaje.image
+        personajeImg.classList.add('imagen');
         const personajeName = document.createTextNode(personaje.name);
         personajeUI.appendChild(personajeId);
         personajeUI.appendChild(document.createElement('br'));
@@ -34,7 +35,13 @@ function main(){
 }
 
 function addPersonajes(){
-    page += 1;
+    if(page < 42)
+        page += 1;
+    else{
+        button = document.getElementById('button');
+        button.disabled = 'true';
+    }
+
     main();
 }
 
