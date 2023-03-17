@@ -1,6 +1,6 @@
-function cargarPokemones( pokemones, container ){
+function cargarPokemons( pokemons, container ){
 
-    pokemones.forEach( async (pokemon) => {
+    pokemons.forEach( async (pokemon) => {
     try{
         pokemonData = await fetch(pokemon.url);
         pokemonDataJSON = await pokemonData.json();
@@ -28,10 +28,10 @@ let offset = 0;
 
 async function main(){
     try {
-    pokemones = await fetch(`https://pokeapi.co/api/v2/pokemon-form?offset=${offset}&limit=20`);
-    pokemonInformation = await pokemones.json();
+    pokemons = await fetch(`https://pokeapi.co/api/v2/pokemon-form?offset=${offset}&limit=20`);
+    pokemonInformation = await pokemons.json();
     const container = document.getElementById("flex-container");
-    cargarPokemones(pokemonInformation.results, container)
+    cargarPokemons(pokemonInformation.results, container)
     }
     catch(error){
         console.error(error);
