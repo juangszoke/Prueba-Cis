@@ -3,9 +3,9 @@ async function cargarPokemons( pokemons, container ){
     //console.log(pokemons)
     pokemons.forEach(  async (pokemon) => {
     try{
-       // console.log(pokemon)
+   
+       
         pokemonData = await fetch(pokemon.url);
-       // console.log(pokemonData)
         pokemonDataJSON = await pokemonData.json();
        
         const pokemonUI = document.createElement("div");
