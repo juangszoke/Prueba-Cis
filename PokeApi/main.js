@@ -24,14 +24,14 @@ function cargarPokemones( pokemones, container ){
     }) 
 }
 
-var offset = 0;
+let offset = 0;
 
 async function main(){
     try {
     pokemones = await fetch(`https://pokeapi.co/api/v2/pokemon-form?offset=${offset}&limit=20`);
     pokemonInformation = await pokemones.json();
-    const currentDiv = document.getElementById("flex-container");
-    cargarPokemones(pokemonInformation.results, currentDiv)
+    const container = document.getElementById("flex-container");
+    cargarPokemones(pokemonInformation.results, container)
     }
     catch(error){
         console.error(error);
