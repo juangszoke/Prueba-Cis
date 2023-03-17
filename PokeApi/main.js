@@ -1,7 +1,7 @@
-async function cargarPokemones( pokemones, container ){
+function cargarPokemones( pokemones, container ){
 
     pokemones.forEach( async (pokemon) => {
-
+    try{
         pokemonData = await fetch(pokemon.url);
         pokemonDataJSON = await pokemonData.json();
 
@@ -17,17 +17,25 @@ async function cargarPokemones( pokemones, container ){
         pokemonUI.appendChild(document.createElement('br'));
         pokemonUI.appendChild(pokemonName);
         container.appendChild(pokemonUI);
+    }
+    catch(error){
+        console.error(error);
+    }
     }) 
 }
 
 var offset = 0;
 
 async function main(){
-
+    try {
     pokemones = await fetch(`https://pokeapi.co/api/v2/pokemon-form?offset=${offset}&limit=20`);
     pokemonInformation = await pokemones.json();
     const currentDiv = document.getElementById("flex-container");
     cargarPokemones(pokemonInformation.results, currentDiv)
+    }
+    catch(error){
+        console.error(error);
+    }
 }
 
 function addPokemon(){
