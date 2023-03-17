@@ -1,30 +1,27 @@
 async function cargarPokemons( pokemons, container ){
-
-    //console.log(pokemons)
-    pokemons.forEach(  async (pokemon) => {
     try{
-   
-       
-        pokemonData = await fetch(pokemon.url);
-        pokemonDataJSON = await pokemonData.json();
-       
-        const pokemonUI = document.createElement("div");
-        pokemonUI.classList.add('personaje');
-        const pokemonId = document.createTextNode(`ID: ${pokemonDataJSON.id}`);
-        const pokemonImg = document.createElement('img');
-        pokemonImg.src = pokemonDataJSON.sprites.front_default
-        const pokemonName = document.createTextNode(pokemonDataJSON.name);
-        pokemonUI.appendChild(pokemonId);
-        pokemonUI.appendChild(document.createElement('br'));
-        pokemonUI.appendChild(pokemonImg);
-        pokemonUI.appendChild(document.createElement('br'));
-        pokemonUI.appendChild(pokemonName);
-        container.appendChild(pokemonUI);
-    }
-    catch(error){
+        const pokemonRequests = pokemons.map(pokemon => fetch(pokemon.url));
+        const pokemonResponses = await Promise.all(pokemonRequests);
+        const pokemonDataList = await Promise.all(pokemonResponses.map(response => response.json())); 
+        
+        pokemonDataList.forEach((pokemonData) => {
+
+            const pokemonUI = document.createElement("div");
+            pokemonUI.classList.add('personaje');
+            const pokemonId = document.createTextNode(`ID: ${pokemonData.id}`);
+            const pokemonImg = document.createElement('img');
+            pokemonImg.src = pokemonData.sprites.front_default
+            const pokemonName = document.createTextNode(pokemonData.name);
+            pokemonUI.appendChild(pokemonId);
+            pokemonUI.appendChild(document.createElement('br'));
+            pokemonUI.appendChild(pokemonImg);
+            pokemonUI.appendChild(document.createElement('br'));
+            pokemonUI.appendChild(pokemonName);
+            container.appendChild(pokemonUI);
+        });
+    }catch(error){
         console.error(error);
     }
-    }) 
 }
 
 let offset = 0;
